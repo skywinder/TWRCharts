@@ -14,8 +14,7 @@ typedef NS_ENUM(NSInteger, ChartsType) {
     Line,
     Bar,
     Pie,
-    Polar,
-    chartsTypeCount
+    Polar
 };
 
 @interface TWRViewController ()
@@ -144,14 +143,12 @@ typedef NS_ENUM(NSInteger, ChartsType) {
             [self loadPieChart];
         }
             break;
-
-        default:
-            break;
         case Polar:{
             [self loadPolarChart];
         }
             break;
-        case chartsTypeCount:break;
+        default:
+            break;
     }
 }
 
