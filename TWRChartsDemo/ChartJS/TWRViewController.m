@@ -157,10 +157,11 @@ typedef NS_ENUM(NSInteger, ChartsType) {
 
 - (void)loadPolarChart
 {
-    // Load chart by using a ChartJS javascript file
+    //todo implement polar chart parser in the future (now Polar char just loading from file index.js
     NSString *jsFilePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"js"];
     NSData *data = [NSData dataWithContentsOfFile:jsFilePath];
     NSString *jsString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
     [_chartView loadChartFromString:jsString];
 }
 
