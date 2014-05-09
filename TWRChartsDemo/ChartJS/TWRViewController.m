@@ -8,6 +8,15 @@
 
 #import "TWRViewController.h"
 #import "TWRChart.h"
+#import "TWRChartView.h"
+
+typedef NS_ENUM(NSInteger, ChartsType) {
+    Line,
+    Bar,
+    Pie,
+    Polar,
+    chartsTypeCount
+};
 
 @interface TWRViewController ()
 
@@ -116,28 +125,43 @@
 #pragma mark - UISegmentedController switch methods
 
 - (void)switchChart:(UISegmentedControl *)sender {
-    switch (sender.selectedSegmentIndex) {
+    ChartsType type = (ChartsType) sender.selectedSegmentIndex;
+    switch (type) {
         //Line
-        case 0: {
+        case Line: {
             [self loadLineChart];
         }
             break;
 
             //Bar
-        case 1: {
+        case Bar: {
             [self loadBarChart];
         }
             break;
 
             //Pie
-        case 2: {
+        case Pie: {
             [self loadPieChart];
         }
             break;
 
         default:
             break;
+        case Polar:{
+            [self loadPolarChart];
+        }
+            break;
+        case chartsTypeCount:break;
     }
+}
+
+- (void)loadPolarChart
+{
+    // Load chart by using a ChartJS javascript file
+    NSString *jsFilePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"js"];
+    NSData *data = [NSData dataWithContentsOfFile:jsFilePath];
+    NSString *jsString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    [_chartView loadChartFromString:jsString];
 }
 
 @end

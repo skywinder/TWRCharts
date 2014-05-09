@@ -111,6 +111,20 @@
     [self loadCircularChart:circularChart];
 }
 
+- (void)loadChartFromString:(NSString *)chartString
+{
+    if ([chartString isKindOfClass:[NSString class]]) {
+        _jsFileString = chartString;
+        [self stringByEvaluatingJavaScriptFromString:_jsFileString];
+        [self loadIndex];
+    } else {
+        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalicChartElement"
+                                                         reason:@"The element object provided to the chart view is not a valid circular chart."
+                                                       userInfo:nil];
+        [exception raise];
+    }
+}
+
 #pragma mark - Private API
 
 - (void)loadIndex {
