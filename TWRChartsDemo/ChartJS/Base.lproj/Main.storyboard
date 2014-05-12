@@ -23,6 +23,7 @@
                                     <segment title="Line"/>
                                     <segment title="Bar"/>
                                     <segment title="Pie"/>
+                                    <segment title="Polar"/>
                                 </segments>
                             </segmentedControl>
                         </subviews>

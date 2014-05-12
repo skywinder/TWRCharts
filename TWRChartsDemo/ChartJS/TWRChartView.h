@@ -62,4 +62,10 @@ typedef void(^TWRAnimationCompletionBlock)(BOOL finished);
  */
 - (void)loadCircularChart:(TWRCircularChart *)circularChart withCompletionHandler:(TWRAnimationCompletionBlock)block;
 
+/**
+ *  Loading a custom chart from string
+ *
+ *  @param chartString the string with custom chart data
+ */
+- (void)loadChartFromString:(NSString *)chartString;
 @end

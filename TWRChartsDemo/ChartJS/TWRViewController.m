@@ -8,6 +8,14 @@
 
 #import "TWRViewController.h"
 #import "TWRChart.h"
+#import "TWRChartView.h"
+
+typedef NS_ENUM(NSInteger, ChartsType) {
+    Line,
+    Bar,
+    Pie,
+    Polar
+};
 
 @interface TWRViewController ()
 
@@ -19,6 +27,12 @@
 @end
 
 @implementation TWRViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadLineChart];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,10 +47,6 @@
 
     // User interaction is disabled by default. You can enable it again if you want
     // _chartView.userInteractionEnabled = YES;
-
-    // Load chart by using a ChartJS javascript file
-    NSString *jsFilePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"js"];
-    [_chartView setChartJsFilePath:jsFilePath];
 
     // Add the chart view to the controller's view
     [self.view addSubview:_chartView];
@@ -72,15 +82,26 @@
 *  Loads a line chart using native code
 */
 - (void)loadLineChart {
+
+    UIColor *color1 = [UIColor blueColor];
+    UIColor *color2 = [UIColor orangeColor];
+
+    TWRDataSet *dataSet2 = [[TWRDataSet alloc] initWithDataPoints:@[@5, @10, @5, @15, @10]
+                                                        fillColor:[color1 colorWithAlphaComponent:0.35]
+                                                      strokeColor:color1];
     // Build chart data
-    TWRDataSet *dataSet1 = [[TWRDataSet alloc] initWithDataPoints:@[@10, @15, @5, @15, @5]];
-    TWRDataSet *dataSet2 = [[TWRDataSet alloc] initWithDataPoints:@[@5, @10, @5, @15, @10]];
+    TWRDataSet *dataSet1 = [[TWRDataSet alloc] initWithDataPoints:@[@10, @15, @5, @15, @5]
+                                                        fillColor:[color2 colorWithAlphaComponent:0.5]
+                                                      strokeColor:color2];
+
+
+
 
     NSArray *labels = @[@"A", @"B", @"C", @"D", @"E"];
 
     TWRLineChart *line = [[TWRLineChart alloc] initWithLabels:labels
                                                      dataSets:@[dataSet1, dataSet2]
-                                                     animated:NO];
+                                                     animated:YES];
     // Load data
     [_chartView loadLineChart:line];
 }
@@ -116,28 +137,42 @@
 #pragma mark - UISegmentedController switch methods
 
 - (void)switchChart:(UISegmentedControl *)sender {
-    switch (sender.selectedSegmentIndex) {
+    ChartsType type = (ChartsType) sender.selectedSegmentIndex;
+    switch (type) {
         //Line
-        case 0: {
+        case Line: {
             [self loadLineChart];
         }
             break;
 
             //Bar
-        case 1: {
+        case Bar: {
             [self loadBarChart];
         }
             break;
 
             //Pie
-        case 2: {
+        case Pie: {
             [self loadPieChart];
         }
             break;
-
+        case Polar:{
+            [self loadPolarChart];
+        }
+            break;
         default:
             break;
     }
+}
+
+- (void)loadPolarChart
+{
+    //todo implement polar chart parser in the future (now Polar char just loading from file index.js
+    NSString *jsFilePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"js"];
+    NSData *data = [NSData dataWithContentsOfFile:jsFilePath];
+    NSString *jsString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+    [_chartView loadChartFromString:jsString];
 }
 
 @end
