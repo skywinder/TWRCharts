@@ -57,8 +57,10 @@ Drop in your Xcode project a .js file and make sure it's been added to the resou
 Then just get a handle on the file and set its path to the TWRChartView that's being added to the controller's view.
 
 ```objc
-NSString *jsFilePath = [[NSBundle mainBundle] pathForResource:@"file" ofType:@"js"];
-[_chartView setChartJsFilePath:jsFilePath];
+NSString *jsFilePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"js"];
+NSData *data = [NSData dataWithContentsOfFile:jsFilePath];
+NSString *jsString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+[_chartView loadChartFromString:jsString];
 ```
 
 You can use any of the chart types currently supported by [ChartJS](http://www.chartjs.org). Here's an example of how you would load a Polar Chart.
