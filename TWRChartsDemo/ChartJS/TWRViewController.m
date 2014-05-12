@@ -28,6 +28,12 @@ typedef NS_ENUM(NSInteger, ChartsType) {
 
 @implementation TWRViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadLineChart];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Charts";
@@ -41,10 +47,6 @@ typedef NS_ENUM(NSInteger, ChartsType) {
 
     // User interaction is disabled by default. You can enable it again if you want
     // _chartView.userInteractionEnabled = YES;
-
-    // Load chart by using a ChartJS javascript file
-    NSString *jsFilePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"js"];
-    [_chartView setChartJsFilePath:jsFilePath];
 
     // Add the chart view to the controller's view
     [self.view addSubview:_chartView];
@@ -80,15 +82,26 @@ typedef NS_ENUM(NSInteger, ChartsType) {
 *  Loads a line chart using native code
 */
 - (void)loadLineChart {
+
+    UIColor *color1 = [UIColor blueColor];
+    UIColor *color2 = [UIColor orangeColor];
+
+    TWRDataSet *dataSet2 = [[TWRDataSet alloc] initWithDataPoints:@[@5, @10, @5, @15, @10]
+                                                        fillColor:[color1 colorWithAlphaComponent:0.35]
+                                                      strokeColor:color1];
     // Build chart data
-    TWRDataSet *dataSet1 = [[TWRDataSet alloc] initWithDataPoints:@[@10, @15, @5, @15, @5]];
-    TWRDataSet *dataSet2 = [[TWRDataSet alloc] initWithDataPoints:@[@5, @10, @5, @15, @10]];
+    TWRDataSet *dataSet1 = [[TWRDataSet alloc] initWithDataPoints:@[@10, @15, @5, @15, @5]
+                                                        fillColor:[color2 colorWithAlphaComponent:0.5]
+                                                      strokeColor:color2];
+
+
+
 
     NSArray *labels = @[@"A", @"B", @"C", @"D", @"E"];
 
     TWRLineChart *line = [[TWRLineChart alloc] initWithLabels:labels
                                                      dataSets:@[dataSet1, dataSet2]
-                                                     animated:NO];
+                                                     animated:YES];
     // Load data
     [_chartView loadLineChart:line];
 }
