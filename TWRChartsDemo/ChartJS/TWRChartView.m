@@ -118,7 +118,7 @@
     NSString *htmlString = [NSString stringWithContentsOfFile:_htmlFilePath encoding:NSUTF8StringEncoding error:&error];
     
     // Set canvas size according to frame dimensions. Leave space for labels at the bottom.
-    NSString *canvasString = [NSString stringWithFormat:@"<canvas id=\"canvas\" height=\"%d\" width=\"%d\"></canvas>", (int)CGRectGetHeight(self.frame)-20, (int)CGRectGetWidth(self.frame) - 10];
+    NSString *canvasString = [NSString stringWithFormat:@"<canvas id=\"canvas\" height=\"%d\" width=\"%d\"></canvas>", (int)CGRectGetHeight(self.frame), (int)CGRectGetWidth(self.frame)];
     htmlString = [htmlString stringByReplacingOccurrencesOfString:@"<canvas></canvas>" withString:canvasString];
     
     // Load it!
