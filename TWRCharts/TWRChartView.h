@@ -62,4 +62,6 @@ typedef void(^TWRAnimationCompletionBlock)(BOOL finished);
  */
 - (void)loadCircularChart:(TWRCircularChart *)circularChart withCompletionHandler:(TWRAnimationCompletionBlock)block;
 
+- (void)loadChartFromString:(NSString *)chartString;
+
 @end
