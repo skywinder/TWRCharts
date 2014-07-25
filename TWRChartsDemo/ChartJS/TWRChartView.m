@@ -62,7 +62,7 @@
         [self stringByEvaluatingJavaScriptFromString:_jsFileString];
         [self loadIndex];
     } else {
-        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalicChartElement"
+        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalidChartElement"
                                                          reason:@"The element object provided to the chart view is not a valid bar chart."
                                                        userInfo:nil];
         [exception raise];
@@ -80,7 +80,7 @@
         [self stringByEvaluatingJavaScriptFromString:_jsFileString];
         [self loadIndex];
     } else {
-        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalicChartElement"
+        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalidChartElement"
                                                          reason:@"The element object provided to the chart view is not a valid line chart."
                                                        userInfo:nil];
         [exception raise];
@@ -98,7 +98,7 @@
         [self stringByEvaluatingJavaScriptFromString:_jsFileString];
         [self loadIndex];
     } else {
-        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalicChartElement"
+        NSException *exception = [NSException exceptionWithName:@"TWRChartInvalidChartElement"
                                                          reason:@"The element object provided to the chart view is not a valid circular chart."
                                                        userInfo:nil];
         [exception raise];
